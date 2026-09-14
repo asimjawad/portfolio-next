@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #000000;
+  --color-panel: #0a0a10;
+  --color-device: #0b0d12;
+
+  --color-fg: #ffffff;
+  --color-body: #e8eaf0;
+  --color-muted: #9aa1b0;
+  --color-subtle: #8b92a3;
+  --color-faint: #6b7280;
+  --color-line: #52586b;
+
+  --color-accent: #c084fc;
+  --color-accent-soft: #d8b4fe;
+  --color-accent-pale: #e9d5ff;
+  --color-accent-deep: #a78bfa;
+
+  --color-mint: #4ade80;
+  --color-mint-soft: #86efac;
+  --color-mint-pale: #bbf7d0;
+
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument), Georgia, serif;
+
+  --ease-out-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  --animate-rise: rise 0.9s var(--ease-out-soft) both;
+  --animate-drift: drift 26s ease-in-out infinite alternate;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(28px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes drift {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(4%, -3%, 0) scale(1.08);
+    }
+    100% {
+      transform: translate3d(-3%, 4%, 0) scale(0.96);
+    }
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    background: var(--color-ink);
+  }
+
+  body {
+    background: var(--color-ink);
+    color: var(--color-body);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-accent) 35%, transparent);
+    color: var(--color-fg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@utility surface {
+  border-radius: 14px;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  background: rgb(24 26 33 / 0.45);
+}
+
+@utility text-gradient {
+  background-image: linear-gradient(to right, var(--color-accent), var(--color-mint));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/*
+ * Scroll-linked entrance. Pure CSS: browsers without scroll-driven animations,
+ * and visitors who prefer reduced motion, simply see the content in place.
+ */
+@utility reveal {
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      animation: reveal linear both;
+      animation-timeline: view();
+      /* Completes once the element is mostly in view, so nothing that fits on screen is left half-faded. */
+      animation-range: entry 5% entry 75%;
+    }
+  }
+}
+
+@utility eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
