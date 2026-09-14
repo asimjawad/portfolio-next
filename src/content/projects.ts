@@ -83,7 +83,6 @@ export const projects: Project[] = [
     links: {
       website: "http://goalsquarecdn.be",
       appStore: "https://apps.apple.com/us/app/goalsquare/id1463011943",
-      github: "https://github.com/asimjawad/GoalSquare",
     },
   },
   {
