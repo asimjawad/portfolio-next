@@ -131,7 +131,7 @@ export const projects: Project[] = [
     accent: "mint",
     stage: "none",
     tools: ["Next.js", "TypeScript", "Tailwind"],
-    links: {},
+    links: { github: "https://github.com/asimjawad/portfolio-next" },
     compact: true,
   },
 ];
